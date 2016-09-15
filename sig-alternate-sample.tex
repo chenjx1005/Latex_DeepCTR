@@ -73,6 +73,7 @@
 \isbn{978-1-4503-3603-1/16/10}\acmPrice{\$15.00}
 \doi{http://dx.doi.org/10.1145/2964284.2964325}
 
+
 \title{Deep CTR Prediction in Display Advertising}
 %
 % You need the command \numberofauthors to handle the 'placement
@@ -100,27 +101,31 @@
 % the body of your article BEFORE References or any Appendices.
 \numberofauthors{5}
 \author{
-	\alignauthor Junxuan Chen\textsuperscript{1,2}\titlenote{The work is done while the author was an intern at Alibaba Group.}\\      
+	\eaddfnt{Junxuan Chen\textsuperscript{1,2}\titlenote{The work is done while the author was an intern at Alibaba Group.}, Baigui Sun\textsuperscript{2}, Hao Li\textsuperscript{2}, Hongtao Lu\textsuperscript{1}\titlenote{Corresponding author.}, Xian-Sheng Hua\textsuperscript{2}\titlenote{Corresponding author.}}\\     
+	%\alignauthor Junxuan Chen\textsuperscript{1,2}\titlenote{The work is done while the author was an intern at Alibaba Group.}\\
 	%\email{chenjunxuan@sjtu.edu.cn}
 	%
-	\alignauthor Baigui Sun\textsuperscript{2}\\
+	%\alignauthor Baigui Sun\textsuperscript{2}\\
 	%\email{baigui.sbg@alibaba-inc.com}
 	%
-	\alignauthor Hao  Li\textsuperscript{2}\\    
+	%\alignauthor Hao  Li\textsuperscript{2}\\    
 	%\email{lihao.lh@alibaba-inc.com}
 	%
-	\alignauthor Hongtao  Lu\textsuperscript{1}\\    
+	%\and
+	%\alignauthor Hongtao  Lu\textsuperscript{1}\\    
 	%\email{htlu@sjtu.edu.cn}
 	%
-	\alignauthor Xian-Sheng  Hua\textsuperscript{2}\\    
+	%\alignauthor Xian-Sheng  Hua\textsuperscript{2}\\    
 	%\email{xiansheng.hxs@alibaba-inc.com}
 	%
 	\sharedaffiliation
-	\affaddr{Brain Science and Technology Research Center, }\\
-	\affaddr{Shanghai Jiaotong University\textsuperscript{1}}  \\
+	\affaddr{\textsuperscript{1}Department of Computer Science and Engineering, Shanghai Jiao Tong University}\\
 	%
-	\sharedaffiliation
-	\affaddr{Alibaba Group\textsuperscript{2}}  \\
+	\and
+	%\sharedaffiliation
+	\affaddr{\textsuperscript{2}Alibaba Group, Hangzhou, China}  \\
+	\and
+	\affaddr{\{chenjunxuan, htlu\}@sjtu.edu.cn \{baigui.sbg, lihao.lh, xiansheng.hxs\}@alibaba-inc.com}
 }
 %
 \date{5 July 2016}
@@ -145,35 +150,8 @@
 % http://dl.acm.org/ccs.cfm
 % Please copy and paste the code instead of the example below. 
 %
-\begin{CCSXML}
-<ccs2012>
- <concept>
-  <concept_id>10010520.10010553.10010562</concept_id>
-  <concept_desc>Computer systems organization~Embedded systems</concept_desc>
-  <concept_significance>500</concept_significance>
- </concept>
- <concept>
-  <concept_id>10010520.10010575.10010755</concept_id>
-  <concept_desc>Computer systems organization~Redundancy</concept_desc>
-  <concept_significance>300</concept_significance>
- </concept>
- <concept>
-  <concept_id>10010520.10010553.10010554</concept_id>
-  <concept_desc>Computer systems organization~Robotics</concept_desc>
-  <concept_significance>100</concept_significance>
- </concept>
- <concept>
-  <concept_id>10003033.10003083.10003095</concept_id>
-  <concept_desc>Networks~Network reliability</concept_desc>
-  <concept_significance>100</concept_significance>
- </concept>
-</ccs2012>  
-\end{CCSXML}
-
-\ccsdesc[500]{Computer systems organization~Embedded systems}
-\ccsdesc[300]{Computer systems organization~Redundancy}
-\ccsdesc{Computer systems organization~Robotics}
-\ccsdesc[100]{Networks~Network reliability}
+\clubpenalty=10000 
+\widowpenalty = 10000
 
 
 %
@@ -225,6 +203,7 @@ The paper is organized as follows. Section 2 introduces the related work, follow
 \end{figure}
 \section{Related Work}
 We consider display advertising CTR prediction and deep neural network are two mostly related areas to our work.
+\vfill\eject
 \subsection{Display Advertising CTR prediction}
 Since the display advertising has taken a large share of online advertising market, many works addressing the CTR prediction problem have been published. In \cite{richardson2007predicting,chakrabarti2008contextual}, authors handcraft many features from raw data and use logistic regression (LR) to predict the click-through rate. \cite{chapelle2014simple} also uses LR to deal with the CTR problem and scales it to
 billions of samples and millions of parameters on a distributed learning system.  In \cite{oentaryo2014predicting},  a Hierarchical Importance-aware Factorization Machine (FM)  \cite{rendle2012factorization} is introduced, which provides a generic latent factor framework that incorporates importance weights and hierarchical learning. In \cite{dave2010learning}, boosted decision trees have been used to build a prediction model. In \cite{he2014practical},  a model which combines decision
@@ -413,7 +392,7 @@ We implement our deep network on C++ Caffe toolbox \cite{jia2014caffe} with some
 \subsection{Results and Discussion}
 \begin{figure}
 	\centering
-	\includegraphics[width=0.45\textwidth]{BN_test}
+	\includegraphics[width=0.45\textwidth]{BN_test_embed}
 	\caption{Test Logloss of the DeepCTR net with/without batch normalization in \emph{Combnet}. }
 	\label{fig:bn}
 \end{figure} 
@@ -426,7 +405,7 @@ In this section we compare the results of various methods and the effects of som
 %\end{figure}
 \begin{figure}
 	\centering
-	\includegraphics[width=0.45\textwidth]{bn_hist_fix_3}
+	\includegraphics[width=0.45\textwidth]{bn_hist_embed}
 	\caption{(a) and (b) are the histograms of outputs of \emph{Basicnet} and \emph{Convnet} without batch normalization while (c) and (d) with batch normalization. }
 	\label{fig:bn_comb}
 \end{figure}
@@ -457,7 +436,7 @@ we further  explore the influence of different deep learning techniques in our D
 First we find that the batch normalization in the \emph{Combnet} can speed up training and largely improve performance (Figure \ref{fig:bn}). To investigate the reason, we show the histogram (Figure \ref{fig:bn_comb}) of the outputs of \emph{Convnet} and $BasicNet$. We can see from the histogram  that two outputs have significant difference in scale and variance. Simply concatenating  these two different kinds of data stream  makes the following fully-connected layer hard to converge. 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.45\textwidth]{dropout_test_train}
+	\includegraphics[width=0.45\textwidth]{dropout_test_train_embed}
 	\caption{Logloss of the DeepCTR net with/without dropout in \emph{Combnet}. Dashed lines denote training loss, and bold lines denote test loss.}
 	\label{fig:dropout}
 \end{figure}
@@ -524,9 +503,10 @@ The visualization provides us an intuitive understanding of the impact of visual
 CTR prediction plays an important role in online display advertising business. Accurate prediction of the CTR of ads not only increases the revenue of web publishers, also improves the user experience. In this paper we propose an end to end integrated deep network to predict the CTR of image ads.  It consists of \emph{Convnet}, \emph{Basicnet} and \emph{Combnet}. \emph{Convnet} is used to extract image features automatically while \emph{Basicnet} is used to reduce the dimensionality of basic features. \emph{Combnet} can learn complex and effective non-linear features from these two kinds of  features. The usage of sparse fully-connected layer and data sampling techniques speeds up the training process significantly.
 We evaluate DeepCTR model on a 50 million real world dataset. The empirical result demonstrates 
 the effectiveness and efficiency of our DeepCTR model. 
-\section{acknowledgement}
-This paper is partially supported by NSFC (No. 61272247, 61533012, 61472075), the 863 National High Technology Research and Development Program of China ( SS2015AA020501), the Basic Research Project of "Innovation Action Plan" (16JC1402800) and the Major Basic Research Program (15JC1400103) of Shanghai Science and Technology Committee.
-
+\section{Acknowledgments}
+This paper is partially supported by NSFC (No. 61272247, 61533012, 61472075), the 863 National High Technology Research and Development Program of China (SS2015AA020501), the Basic Research Project of  Innovation Action Plan \\
+(16JC1402800) and the Major Basic Research Program\\(15JC1400103) of Shanghai Science and Technology Committee.
+\vfill\eject
 %
 % The following two commands are all you need in the
 % initial runs of your .tex file to
@@ -537,7 +517,6 @@ This paper is partially supported by NSFC (No. 61272247, 61533012, 61472075), th
 %  and remember to run:
 % latex bibtex latex latex
 % to resolve all references
-%
 % ACM needs 'a single self-contained file'!
 %
 \end{document}
